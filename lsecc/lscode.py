@@ -75,7 +75,7 @@ def generate_code(n,k):
     primes = Primes(n+k)
     primes_list = primes.primes_list
     #primes_list=primes.primes_3mod4()
-    print primes_list
+    print (primes_list)
 
     words = gen_words(primes_list[0:k])
     primes = primes_list[k:n+k]
@@ -90,7 +90,7 @@ def generate_jacobi_code(n,k):
     primes = Primes(nlog+k+1)
     primes_list = primes.primes_list
     #primes_list=primes.primes_3mod4()
-    print primes_list
+    print(primes_list)
 
     words = gen_words(primes_list[0:k])
     primes = primes_list[k:nlog+k]
@@ -157,9 +157,9 @@ def calculate_code_params(the_code):
         d = calculate_code_distance_linear(the_code)
     else:
         d=0
-    print "d=",d
-    print "code (n,k,d)=",n,k,d
-    print "code (k/n,d/n)=",k*1.0/n,d*1.0/n
+    print ("d=",d)
+    print ("code (n,k,d)=",n,k,d)
+    print ("code (k/n,d/n)=",k*1.0/n,d*1.0/n)
     return k*1.0/n,d*1.0/n
 
 
@@ -192,7 +192,7 @@ def check_unique_encoding(the_code):
         for w2 in the_code:
             if(w1 == w2):
                 cnt_similar = cnt_similar+1
-        if cnt_similar<>1:
+        if cnt_similar!=1:
             return False
     return True
 
@@ -205,8 +205,8 @@ def plot_delta_rate_fix_k():
         n=int(k/r)
         delta = 1.0*calculate_ls_code_params(n,k)[1]
         deltas = np.append(deltas,delta)
-    print rates
-    print deltas
+    print (rates)
+    print (deltas)
     plt.plot(rates, deltas, 'ro', label='This paper, k=10')
 
     # GV bound
@@ -228,7 +228,7 @@ def plot():
     plot_delta_rate_fix_k()
 
 def test():
-    print "test"
+    print ("test")
     # plot_leg_sym_code()
     # print jacoby_symbol(5,6)
     # print calculate_jacobi_code_params(16,4)
@@ -237,13 +237,13 @@ def test():
     # print calculate_ls_code_params(64,8)
 
 def main():
-    print "legendre symbol error corrcting code"
+    print ("legendre symbol error corrcting code")
     try:
         n = int(sys.argv[1])
         k = int(sys.argv[2])
-        print calculate_ls_code_params(n, k)
+        print (calculate_ls_code_params(n, k))
     except:
-        print "Error runnig lsecc. \nrun: python lsecc.py <code-length> <code-dimension>"
+        print ("Error runnig lsecc. \nrun: python lscode.py <code-length> <code-dimension>")
 
 
 
