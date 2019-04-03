@@ -2,4 +2,4 @@
 python code for creating error correcting codes from quadratic residues
 
 command line:
-python lsecc.py code-length code-dimension
+python lscode.py code-length code-dimension
