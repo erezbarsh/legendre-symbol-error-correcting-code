@@ -4,7 +4,7 @@ from math import gcd
 from sympy import primerange,prime
 
 class Primes:
-    odd_primes_list = None
+    odd_primes_list = []
 
     def __init__(self,n):
         self.gen_odd_primes(n)
@@ -12,7 +12,7 @@ class Primes:
 
 
     def gen_odd_primes(self, n):
-        self.odd_primes_list = primerange(3, prime(n+1) + 1)
+        self.odd_primes_list = list(primerange(3, prime(n+1) + 1))
 
 
 def factorization(n):

@@ -8,7 +8,7 @@ import numpy as np
 import sys
 from sympy.ntheory import legendre_symbol as sympy_ls
 from sympy.ntheory import jacobi_symbol as sympy_js
-from sympy import primerange
+from itertools import chain, combinations
 
 
 
@@ -34,15 +34,21 @@ def bin_arr(num, fixlen=0):
         binary.append(0)
     return binary
 
-
+def powerset(iterable):
+    """ powerset([3,5,7]) --> () (3,) (5,) (7,) (3,5) (3,7) (5,7) (3,5,7) """
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
 def gen_words(primes_arr):
-    ret_words=[]
-    for bin in range(pow(2,len(primes_arr))):
-        ba = bin_arr(bin,len(primes_arr))
-        ret_words.append(mul_pow(primes_arr,ba))
-    return ret_words
+    words = []
+    pow_set = list(powerset(primes_arr))
+    for set in pow_set:
+        word = 1
+        for item in set:
+            word = word * item
+        words.append(word)
+    return words
 
 
 
@@ -196,10 +202,11 @@ def test():
     print(legendre_symbol(3,17))
     print(jacobi_symbol(5, 21))
     print(list(Primes(5).odd_primes_list))
-    # print calculate_jacobi_code_params(16,4)
     # print check_unique_encoding(generate_jacobi_code(16,4))
     # k=10
-    # print calculate_ls_code_params(64,8)
+    # print(calculate_ls_code_params(64,8))
+    print(gen_words([3,5,7]))
+    print(calculate_ls_code_params(5,2))
 
 def main():
     print ("legendre symbol error corrcting code")
@@ -214,9 +221,10 @@ def main():
 
 
 if __name__ == "__main__":
-    #plot()
+    # plot()
     test()
     # main()
+
 
 
 
