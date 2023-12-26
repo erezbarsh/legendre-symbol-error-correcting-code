@@ -8,6 +8,8 @@ import numpy as np
 import sys
 from sympy.ntheory import legendre_symbol as sympy_ls
 from sympy.ntheory import jacobi_symbol as sympy_js
+from sympy import primerange
+
 
 
 
@@ -19,9 +21,6 @@ def legendre_symbol(a, p):
 
 def jacobi_symbol(a, m):
     return sympy_js(a,m)
-
-
-
 
 
 
@@ -40,10 +39,8 @@ def bin_arr(num, fixlen=0):
 
 def gen_words(primes_arr):
     ret_words=[]
-    #return set(itertools.combinations(arr,3))
     for bin in range(pow(2,len(primes_arr))):
         ba = bin_arr(bin,len(primes_arr))
-        #print bin,ba,mul_pow(arr,ba)
         ret_words.append(mul_pow(primes_arr,ba))
     return ret_words
 
@@ -60,7 +57,7 @@ def mul_pow(multipliers,powers):
 # a matrix containing the code words
 def generate_code(n,k):
     primes = Primes(n+k)
-    primes_list = primes.primes_list
+    primes_list = primes.odd_primes_list
     #primes_list=primes.primes_3mod4()
     print (primes_list)
 
@@ -69,22 +66,6 @@ def generate_code(n,k):
     print(primes_list)
     print(primes)
     code = [[legendre_symbol(w,p) for p in primes] for w in words]
-    return code
-
-# a matrix containing the code words
-def generate_jacobi_code(n,k):
-    nlog = int(math.log(n,2))
-    primes = Primes(nlog+k+1)
-    primes_list = primes.primes_list
-    #primes_list=primes.primes_3mod4()
-    print(primes_list)
-
-    words = gen_words(primes_list[0:k])
-    primes = primes_list[k:nlog+k]
-    encoders = gen_words(primes)
-    print(primes_list)
-    print(encoders)
-    code = [[jacobi_symbol(w, m) for m in encoders] for w in words]
     return code
 
 # assuming a well defined code matrix
@@ -155,12 +136,6 @@ def calculate_ls_code_params(ln,dim):
     #print code
     return calculate_code_params(code)
 
-def calculate_jacobi_code_params(ln,dim):
-    code = generate_jacobi_code(ln,dim)
-    #print code
-    return calculate_code_params(code)
-
-#rate,delta = calculate_ls_code_params(50,10)
 
 def plot_leg_sym_code():
     fig = plt.figure(1)
@@ -220,6 +195,7 @@ def test():
     # print(jacobi_symbol(5,6))
     print(legendre_symbol(3,17))
     print(jacobi_symbol(5, 21))
+    print(list(Primes(5).odd_primes_list))
     # print calculate_jacobi_code_params(16,4)
     # print check_unique_encoding(generate_jacobi_code(16,4))
     # k=10
