@@ -5,33 +5,20 @@ from primes import Primes
 import matplotlib.pyplot as plt
 import bounds
 import numpy as np
-import primes
 import sys
+from sympy.ntheory import legendre_symbol as sympy_ls
+from sympy.ntheory import jacobi_symbol as sympy_js
 
 
 
-# note this can be done more efficiently storing values like so:
-# http://math.stackexchange.com/questions/447468/fast-legendre-symbol-calculation
+
 def legendre_symbol(a, p):
-    """ Compute the Legendre symbol a|p using
-        Euler's criterion. p is a prime, a is
-        relatively prime to p (if p divides
-        a, then a|p = 0)
-
-        Returns 1 if a has a square root modulo
-        p, -1 otherwise.
-    """
-    ls = pow(a, (p - 1) / 2, p)
-    return -1 if ls == p - 1 else ls
+    return sympy_ls(a,p)
 
 
 
-def jacoby_symbol(a, m):
-    fact = primes.factorization(m)
-    jac = 1
-    for p in fact:
-        jac = jac*legendre_symbol(a,p)
-    return jac
+def jacobi_symbol(a, m):
+    return sympy_js(a,m)
 
 
 
@@ -97,7 +84,7 @@ def generate_jacobi_code(n,k):
     encoders = gen_words(primes)
     print(primes_list)
     print(encoders)
-    code = [[jacoby_symbol(w,m) for m in encoders] for w in words]
+    code = [[jacobi_symbol(w, m) for m in encoders] for w in words]
     return code
 
 # assuming a well defined code matrix
@@ -230,7 +217,9 @@ def plot():
 def test():
     print ("test")
     # plot_leg_sym_code()
-    # print jacoby_symbol(5,6)
+    # print(jacobi_symbol(5,6))
+    print(legendre_symbol(3,17))
+    print(jacobi_symbol(5, 21))
     # print calculate_jacobi_code_params(16,4)
     # print check_unique_encoding(generate_jacobi_code(16,4))
     # k=10
@@ -250,8 +239,8 @@ def main():
 
 if __name__ == "__main__":
     #plot()
+    test()
     # main()
-    print(1+1)
 
 
 
