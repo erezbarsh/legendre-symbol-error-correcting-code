@@ -1,6 +1,6 @@
 __author__ = 'erez'
 
-from fractions import gcd
+from math import gcd
 #simple primes generator using eratosthene sieve
 class Primes:
     primes_list = []

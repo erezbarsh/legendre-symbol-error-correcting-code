@@ -250,8 +250,8 @@ def main():
 
 if __name__ == "__main__":
     #plot()
-    main()
-
+    # main()
+    print(1+1)
 
 
 
