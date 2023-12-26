@@ -31,7 +31,7 @@ def gv(q,delta):
 # Hamming bound
 def hb_A_q_n_d(n,q,d):
     s=0
-    t=(d-1)/2
+    t=int((d-1)/2)
     for idx in range(t+1):
         s=s+n_over_k(n,idx)*math.pow(q-1,idx)
     if(s==0):

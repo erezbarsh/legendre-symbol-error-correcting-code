@@ -175,7 +175,7 @@ def plot_delta_rate_fix_k():
         deltas = np.append(deltas,delta)
     print (rates)
     print (deltas)
-    plt.plot(rates, deltas, 'ro', label='This paper, k=10')
+    plt.scatter(rates, deltas, c='red', s=10, label='This paper, k=10')
 
     # GV bound
     gv_deltas = np.arange(0.0,0.5,0.01)
@@ -190,6 +190,7 @@ def plot_delta_rate_fix_k():
     plt.ylabel('relative distance (d/n)')
     plt.axis([0, 1, 0, 0.5])
     plt.legend()
+    plt.savefig("LSC_GV_Hamming.png", dpi=300)
     plt.show()
 
 def plot():
@@ -204,9 +205,9 @@ def test():
     print(list(Primes(5).odd_primes_list))
     # print check_unique_encoding(generate_jacobi_code(16,4))
     # k=10
-    # print(calculate_ls_code_params(64,8))
     print(gen_words([3,5,7]))
     print(calculate_ls_code_params(5,2))
+    print(calculate_ls_code_params(64,8))
 
 def main():
     print ("legendre symbol error corrcting code")
@@ -221,8 +222,8 @@ def main():
 
 
 if __name__ == "__main__":
-    # plot()
-    test()
+    plot()
+    # test()
     # main()
 
 
