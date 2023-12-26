@@ -121,11 +121,11 @@ def weight(word):
     return wt
 
 
-def calculate_code_params(the_code):
+def calculate_code_params(the_code, dim):
     alter_to_linear(the_code)
     #print code[0:10]
     n = len(the_code[0])
-    k = math.log(len(the_code),2)
+    k = dim
     #d=calculate_code_distance(code)
     if(check_unique_encoding(the_code)):
         d = calculate_code_distance_linear(the_code)
@@ -140,7 +140,7 @@ def calculate_code_params(the_code):
 def calculate_ls_code_params(ln,dim):
     code = generate_code(ln,dim)
     #print code
-    return calculate_code_params(code)
+    return calculate_code_params(code,dim)
 
 
 def plot_leg_sym_code():
@@ -167,15 +167,25 @@ def check_unique_encoding(the_code):
 
 def plot_delta_rate_fix_k():
     k=10
-    rates= np.arange(0.01,1.0,0.01)
+    ns = np.arange(k*3,2**k,1)
+    ns = np.insert(ns,0,10)
+    ns = np.insert(ns, 0, 10)
+    ns = np.insert(ns, 0, 14)
+    ns = np.insert(ns, 0, 20)
+    ns = np.insert(ns, 0, 27)
+    # rates= np.arange(0.01,1,0.005)
+    # ns = [int(k/r) for r in rates]
+    # ns = np.unique(ns)
+    rates = k/ns
+    #
+    # ns = [int(k / r) for r in rates]
     deltas = np.array([])
-    for r in rates:
-        n=int(k/r)
+    for n in ns:
         delta = 1.0*calculate_ls_code_params(n,k)[1]
         deltas = np.append(deltas,delta)
     print (rates)
     print (deltas)
-    plt.scatter(rates, deltas, c='red', s=10, label='This paper, k=10')
+    plt.scatter(rates, deltas, c='red', s=5, label='This paper, k=10')
 
     # GV bound
     gv_deltas = np.arange(0.0,0.5,0.01)
@@ -208,6 +218,7 @@ def test():
     print(gen_words([3,5,7]))
     print(calculate_ls_code_params(5,2))
     print(calculate_ls_code_params(64,8))
+    print(calculate_ls_code_params(14, 10))
 
 def main():
     print ("legendre symbol error corrcting code")
@@ -222,9 +233,9 @@ def main():
 
 
 if __name__ == "__main__":
-    plot()
+    # plot()
     # test()
-    # main()
+    main()
 
 
 
