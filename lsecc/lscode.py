@@ -203,8 +203,30 @@ def plot_delta_rate_fix_k():
     plt.savefig("LSC_GV_Hamming.png", dpi=300)
     plt.show()
 
+
+
+def plot_delta_fix_k():
+    k=10
+    # ns = np.arange(k,2**k,10)
+    ns = np.arange(k,2**k,10)
+    deltas = np.array([])
+    for n in ns:
+        delta = 1.0*calculate_ls_code_params(n,k)[1]*n
+        deltas = np.append(deltas,delta)
+    plt.bar(ns, deltas, width=10, label='code distance for k=10')
+    # plt.plot(ns, ns/2, color='red', label='n/2')
+    plt.xlabel('code length (n)')
+    plt.ylabel('code distance (d)')
+    plt.title('Legendre Symbol code - Distance vs Length for Dimension k=10')
+    # plt.legend()
+    plt.savefig("LSC_Distance.png", dpi=300)
+    plt.show()
+
 def plot():
     plot_delta_rate_fix_k()
+
+def plot2():
+    plot_delta_fix_k()
 
 def test():
     print ("test")
@@ -234,8 +256,9 @@ def main():
 
 if __name__ == "__main__":
     # plot()
+    plot2()
     # test()
-    main()
+    # main()
 
 
 
