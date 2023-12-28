@@ -5,30 +5,33 @@ from lscode import calculate_ls_code_params
 import bounds
 
 
-
-
-
-def plot_delta_rate_fix_k():
-    k=10
-    ns = np.arange(k*3,2**k,1)
-    ns = np.insert(ns,0,10)
-    ns = np.insert(ns, 0, 10)
+def plot_delta_rate_fix_k(k=10, color='red', marker=None):
+    ns = np.arange(k * 3, 2 ** k, 2)
+    if k>=10:
+        ns = np.insert(ns, 0, 10)
     ns = np.insert(ns, 0, 14)
     ns = np.insert(ns, 0, 20)
     ns = np.insert(ns, 0, 27)
     # rates= np.arange(0.01,1,0.005)
     # ns = [int(k/r) for r in rates]
     # ns = np.unique(ns)
-    rates = k/ns
+    rates = k / ns
     #
     # ns = [int(k / r) for r in rates]
     deltas = np.array([])
     for n in ns:
-        delta = 1.0*calculate_ls_code_params(n,k)[1]
-        deltas = np.append(deltas,delta)
-    print (rates)
-    print (deltas)
-    plt.scatter(rates, deltas, c='red', s=5, label='This paper, k=10')
+        delta = 1.0 * calculate_ls_code_params(n, k)[1]
+        deltas = np.append(deltas, delta)
+    print(rates)
+    print(deltas)
+    plt.scatter(rates, deltas, c=color, s=8, marker=marker, label=f'This paper, k={k}')
+
+
+def plot_delta_rate():
+    plot_delta_rate_fix_k(k=8,color='black', marker='v')
+    plot_delta_rate_fix_k(k=10, color='red')
+
+
 
     # GV bound
     gv_deltas = np.arange(0.0,0.5,0.01)
@@ -57,11 +60,11 @@ def plot_delta_fix_k():
     for n in ns:
         delta = 1.0*calculate_ls_code_params(n,k)[1]*n
         deltas = np.append(deltas,delta)
-    plt.bar(ns, deltas, width=10, label='code distance for k=10')
+    plt.bar(ns, deltas, width=10, label='This paper, k=10')
     # plt.plot(ns, ns/2, color='red', label='n/2')
-    plt.xlabel('code length (n)')
-    plt.ylabel('code distance (d)')
-    plt.title('Legendre Symbol code - Distance vs Length for Dimension k=10')
-    # plt.legend()
+    plt.xlabel('block length (n)')
+    plt.ylabel('minimum distance (d)')
+    # plt.title('Legendre Symbol code - Distance vs Length for Dimension k=10')
+    plt.legend()
     plt.savefig("LSC_Distance.png", dpi=300)
     plt.show()

@@ -168,7 +168,7 @@ def check_unique_encoding(the_code):
 
 
 def plot():
-    plots.plot_delta_rate_fix_k()
+    plots.plot_delta_rate()
 
 def plot2():
     plots.plot_delta_fix_k()
@@ -201,9 +201,9 @@ def main():
 
 if __name__ == "__main__":
     # plot()
-    plot2()
+    # plot2()
     # test()
-    # main()
+    main()
 
 
 
